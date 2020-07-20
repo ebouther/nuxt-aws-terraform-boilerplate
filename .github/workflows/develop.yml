@@ -7,18 +7,20 @@ on:
   pull_request:
 
 jobs:
+
   build:
     name: Build
     runs-on: ubuntu-latest
-    steps:
-      run: |
-        npm install
-        npm run generate --if-exists
+    run: |
+      npm install
+      npm run generate --if-exists
+
 
   test:
     name: Test
     runs-on: ubuntu-latest
     run: echo test...
+
 
   deploy:
     name: 'Deploy'
