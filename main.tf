@@ -1,5 +1,5 @@
 provider "aws" {
-  region = var.region
+  region     = var.region
   access_key = var.access_key
   secret_key = var.secret_key
 }
@@ -15,7 +15,7 @@ resource "aws_s3_bucket" "aws_s3_bucket_nuxt_website" {
 }
 
 output "url" {
- value = "http://${aws_s3_bucket.aws_s3_bucket_nuxt_website.bucket}.s3-website.${var.region}.amazonaws.com"
+  value = "http://${aws_s3_bucket.aws_s3_bucket_nuxt_website.bucket}.s3-website.${var.region}.amazonaws.com"
 }
 
 resource "aws_appsync_graphql_api" "aws_appsync_graphql_api_nuxt" {
