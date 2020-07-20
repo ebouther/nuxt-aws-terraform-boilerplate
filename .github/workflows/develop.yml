@@ -64,7 +64,7 @@ jobs:
       timeout-minutes: 3
       if: github.event_name == 'push'
       run: |
-        aws s3 sync ./dist/ ${{ secrets.S3_BUCKET_WEBSITE }}
+        aws s3 sync ./dist/ ${{ secrets.S3_BUCKET_WEBSITE }} --acl public-read
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
