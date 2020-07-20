@@ -1,0 +1,21 @@
+
+name: DEV-CI
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Run a multi-line script
+      run: |
+        echo build
+        echo test
+        echo deploy
