@@ -41,7 +41,7 @@ jobs:
     - name: Terraform Plan
       run: |
         terraform plan \
-          -var access_key=${{ secrets.AWS_ACCESS_KEY_ID }}
+          -var access_key=${{ secrets.AWS_ACCESS_KEY }}
           -var secret_key=${{ secrets.AWS_SECRET_KEY }}
           -var region=${{ secrets.AWS_REGION }}
 
@@ -49,7 +49,7 @@ jobs:
       if: github.event_name == 'push'
       run: |
         terraform apply -auto-approve \
-          -var access_key=${{ secrets.AWS_ACCESS_KEY_ID }}
+          -var access_key=${{ secrets.AWS_ACCESS_KEY }}
           -var secret_key=${{ secrets.AWS_SECRET_KEY }}
           -var region=${{ secrets.AWS_REGION }}
 
@@ -59,6 +59,6 @@ jobs:
       run: |
         aws s3 sync ./dist/ ${{ secrets.S3_BUCKET_WEBSITE }}
       env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
         AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
