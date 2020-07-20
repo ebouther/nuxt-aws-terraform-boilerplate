@@ -11,4 +11,3 @@
     "post-update": "yarn upgrade --latest"
   }
 }
-
