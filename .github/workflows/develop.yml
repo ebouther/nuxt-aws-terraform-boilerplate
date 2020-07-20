@@ -39,6 +39,7 @@ jobs:
       run: terraform fmt -check
 
     - name: Terraform Plan
+      timeout-minutes: 3
       run: |
         terraform plan \
           -var access_key=${{ secrets.AWS_ACCESS_KEY }}
@@ -46,6 +47,7 @@ jobs:
           -var region=${{ secrets.AWS_REGION }}
 
     - name: Terraform Apply
+      timeout-minutes: 3
       if: github.event_name == 'push'
       run: |
         terraform apply -auto-approve \
@@ -55,6 +57,7 @@ jobs:
 
 
     - name: Upload to S3
+      timeout-minutes: 3
       if: github.event_name == 'push'
       run: |
         aws s3 sync ./dist/ ${{ secrets.S3_BUCKET_WEBSITE }}
