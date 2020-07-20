@@ -9,26 +9,7 @@ on:
 
 jobs:
 
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Build
-      run: |
-        npm install
-        npm run generate --if-exists
-
-
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Test
-      run: echo test...
-
-
-  deploy:
-    name: 'Deploy'
+  main:
     runs-on: ubuntu-latest
 
     defaults:
@@ -36,8 +17,20 @@ jobs:
         shell: bash
 
     steps:
+
     - name: Checkout
       uses: actions/checkout@v2
+
+    - name: Build
+      run: |
+        npm install
+        npm run generate --if-exists
+
+
+    - name: Test
+      run: echo test...
+
+
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
