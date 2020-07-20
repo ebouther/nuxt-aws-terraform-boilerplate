@@ -35,6 +35,10 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
 
+    - name: Terraform Init
+      timeout-minutes: 3
+      run: terraform init
+
     - name: Terraform Format
       run: terraform fmt -check
 
