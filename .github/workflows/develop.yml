@@ -1,21 +1,60 @@
-
-name: DEV-CI
+name: 'DEV-CI'
 
 on:
   push:
-    branches: [ develop ]
+    branches:
+    - develop
   pull_request:
-    branches: [ develop ]
 
 jobs:
   build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      run: |
+        npm install
+        npm run generate --if-exists
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    run: echo test...
+
+  deploy:
+    name: 'Deploy'
     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v2
+    defaults:
+      run:
+        shell: bash
 
-    - name: Run a multi-line script
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Terraform Format
+      run: terraform fmt -check
+
+    - name: Terraform Plan
+      run: terraform plan
+
+    - name: Terraform Apply
+      if: github.event_name == 'push'
       run: |
-        echo build
-        echo test
-        echo deploy
+        terraform apply -auto-approve \
+          -var access_key=${{ secrets.AWS_ACCESS_KEY_ID }}
+          -var secret_key=${{ secrets.AWS_SECRET_KEY }}
+          -var region=${{ secrets.AWS_REGION }}
+
+
+    - name: Upload to S3
+      if: github.event_name == 'push'
+      run: |
+        aws s3 sync ./dist/ ${{ secrets.S3_BUCKET_WEBSITE }}
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+        AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
