@@ -42,8 +42,8 @@ jobs:
       timeout-minutes: 3
       run: |
         terraform plan \
-          -var access_key=${{ secrets.AWS_ACCESS_KEY }}
-          -var secret_key=${{ secrets.AWS_SECRET_KEY }}
+          -var access_key=${{ secrets.AWS_ACCESS_KEY }} \
+          -var secret_key=${{ secrets.AWS_SECRET_KEY }} \
           -var region=${{ secrets.AWS_REGION }}
 
     - name: Terraform Apply
@@ -51,8 +51,8 @@ jobs:
       if: github.event_name == 'push'
       run: |
         terraform apply -auto-approve \
-          -var access_key=${{ secrets.AWS_ACCESS_KEY }}
-          -var secret_key=${{ secrets.AWS_SECRET_KEY }}
+          -var access_key=${{ secrets.AWS_ACCESS_KEY }} \
+          -var secret_key=${{ secrets.AWS_SECRET_KEY }} \
           -var region=${{ secrets.AWS_REGION }}
 
 
