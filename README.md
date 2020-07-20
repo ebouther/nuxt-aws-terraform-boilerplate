@@ -7,11 +7,14 @@ This project is meant to be used as a base to host a Nuxt Website on AWS using t
 ## How to:
 
 Fork the repository.
-Go to Settings->Secrets and  the following keys:
+
+Go to Settings->Secrets and set the following keys:
+  ```
   AWS_ACCESS_KEY=<Your AWS Access Key Id>
   AWS_SECRET_KEY=<Your AWS Secret Key>
   AWS_REGION=eu-central-1
   S3_BUCKET_WEBSITE=s3://website-bucket-name
+  ```
 
 Project Setup:
 `npm install`
